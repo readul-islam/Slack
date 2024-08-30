@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,6 +22,7 @@ interface SignInCardProps {
 }
 
 export const SignInCard = ({ setState }: SignInCardProps) => {
+    const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -66,16 +67,26 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
             type="email"
             required
           />
-          <Input
-            disabled={pending}
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            placeholder="password"
-            type="password"
-            required
-          />
+              <div className="relative">
+            <Input
+              disabled={pending}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              placeholder="password"
+              type={show ? "text" : "password"}
+              required
+            />
+            <div className="absolute top-3 text-slate-500 right-3 cursor-pointer">
+              {show ? (
+                <FaEye onClick={() => setShow(false)} />
+              ) : (
+                <FaEyeSlash onClick={() => setShow(true)} />
+              )}
+             
+            </div>
+            </div>
           <Button
             type="submit"
             className="w-full"

@@ -24,6 +24,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [error, setError] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -37,7 +38,7 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
       return;
     }
     setPending(true);
-    signIn("password", { email, password, flow: "signUp" })
+    signIn("password", { name, email, password, flow: "signUp" })
       .catch((e) => {
         console.log(e);
         setError("Something went wrong");
@@ -65,6 +66,15 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
         <form onSubmit={onPasswordSignUp} className="space-y-2.5">
           <Input
             disabled={pending}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            placeholder="Full name"
+            required
+          />
+          <Input
+            disabled={pending}
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -90,30 +100,28 @@ export const SignUpCard = ({ setState }: SignUpCardProps) => {
               ) : (
                 <FaEyeSlash onClick={() => setShow(true)} />
               )}
-             
             </div>
           </div>
           <div className="relative">
-          <Input
-            disabled={pending}
-            value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
-            }}
-            placeholder="Confirm password"
-            type={show1?"text":"password"}
-            required
-          />
-          <div className="absolute top-3 text-slate-500 right-3 cursor-pointer">
+            <Input
+              disabled={pending}
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
+              placeholder="Confirm password"
+              type={show1 ? "text" : "password"}
+              required
+            />
+            <div className="absolute top-3 text-slate-500 right-3 cursor-pointer">
               {show1 ? (
                 <FaEye onClick={() => setShow1(false)} />
               ) : (
                 <FaEyeSlash onClick={() => setShow1(true)} />
               )}
-             
             </div>
           </div>
-         
+
           <Button
             type="submit"
             className="w-full"
