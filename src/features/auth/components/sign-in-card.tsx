@@ -5,13 +5,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { SignInFlow } from "../types"
+import { useState } from "react"
 
 interface SignInCardProps {
-setState:(state:SignInFlow) => void;
+    setState: (state: SignInFlow) => void;
 
 }
 
-export const SignInCard = ({setState}:SignInCardProps) => {
+export const SignInCard = ({ setState }: SignInCardProps) => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     return (
         <Card className="w-full h-full p-8">
             <CardHeader className="px-0 pt-0">
@@ -24,14 +27,18 @@ export const SignInCard = ({setState}:SignInCardProps) => {
             </CardHeader>
             <CardContent className="space-y-5 px-0 pb-0">
                 <form className="space-y-2.5">
-                    <Input disabled={false} value=""
-                        onChange={() => { }}
+                    <Input
+                        disabled={false}
+                        value={email}
+                        onChange={(e) => { setEmail(e.target.value) }}
                         placeholder="Email"
                         type="email"
                         required
                     />
-                    <Input disabled={false} value=""
-                        onChange={() => { }}
+                    <Input
+                        disabled={false}
+                        value={password}
+                        onChange={(e) => { setPassword(e.target.value) }}
                         placeholder="password"
                         type="password"
                         required
@@ -63,9 +70,9 @@ export const SignInCard = ({setState}:SignInCardProps) => {
                     </Button>
                     <p className="text-xs text-muted-foreground">
 
-                        Don&apos;t have an account?<span 
-                        onClick={()=> setState("signUp")}
-                        className="text-sky-700 hover:underline cursor-pointer"> Sign up</span>
+                        Don&apos;t have an account?<span
+                            onClick={() => setState("signUp")}
+                            className="text-sky-700 hover:underline cursor-pointer"> Sign up</span>
                     </p>
                 </div>
             </CardContent>
