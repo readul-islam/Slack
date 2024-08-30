@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import { SignInFlow } from "../types"
 import { useState } from "react"
+import GoogleAuthButton from "@/components/ui/googleAuthButton"
+import GitHubAuthButton from "@/components/ui/githubAuthButton"
 
 interface SignInCardProps {
     setState: (state: SignInFlow) => void;
@@ -15,6 +17,11 @@ interface SignInCardProps {
 export const SignInCard = ({ setState }: SignInCardProps) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [pending , setPending] = useState<boolean>(false);
+
+    const onPassword = (e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
+    }
     return (
         <Card className="w-full h-full p-8">
             <CardHeader className="px-0 pt-0">
@@ -28,7 +35,7 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
             <CardContent className="space-y-5 px-0 pb-0">
                 <form className="space-y-2.5">
                     <Input
-                        disabled={false}
+                        disabled={pending}
                         value={email}
                         onChange={(e) => { setEmail(e.target.value) }}
                         placeholder="Email"
@@ -36,38 +43,21 @@ export const SignInCard = ({ setState }: SignInCardProps) => {
                         required
                     />
                     <Input
-                        disabled={false}
+                        disabled={pending}
                         value={password}
                         onChange={(e) => { setPassword(e.target.value) }}
                         placeholder="password"
                         type="password"
                         required
                     />
-                    <Button type="submit" className="w-full" size={"lg"} disabled={false}>Continue</Button>
+                    <Button type="submit" className="w-full" size={"lg"} disabled={pending}>Continue</Button>
                 </form>
                 <Separator />
                 <div className="flex flex-col space-y-2.5">
-                    <Button className="w-full relative"
-                        disabled={false}
-                        onClick={() => { }}
-                        variant='outline'
-                        size={'lg'}
+                    <GoogleAuthButton pending={pending} setPending={setPending}/>
+                    <GitHubAuthButton pending={pending} setPending={setPending}/>
 
-                    >
-                        <FcGoogle className="size-5 absolute top-3 left-2.5" />
-                        Continue with Google
-                    </Button>
-
-                    <Button className="w-full relative"
-                        disabled={false}
-                        onClick={() => { }}
-                        variant='outline'
-                        size={'lg'}
-
-                    >
-                        <FaGithub className="size-5 absolute top-3 left-2.5" />
-                        Continue with Google
-                    </Button>
+                    
                     <p className="text-xs text-muted-foreground">
 
                         Don&apos;t have an account?<span
