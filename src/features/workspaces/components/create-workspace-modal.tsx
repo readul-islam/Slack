@@ -13,15 +13,17 @@ import { Button } from "@/components/ui/button";
 import { useCreateWorkspace } from "../api/use-create-workspace";
 import { useState } from "react";
 import { Router } from "next/router";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const CreateWorkSpaceModal = () => {
+  const router = useRouter();
   const [open, setOpen] = useCreateWorkspaceModal();
   const [name, setName] = useState("");
   const { mutated, isPending } = useCreateWorkspace();
 
   const handleClose = () => {
     setOpen(false);
+    setName("")
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,8 +31,9 @@ const CreateWorkSpaceModal = () => {
     mutated(
       { name },
       {
-        onSuccess(data) {
-           
+        onSuccess(id) {
+           router.push(`/workspace/${id}`);
+           handleClose()
         },
       }
     );

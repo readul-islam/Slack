@@ -17,8 +17,7 @@ export default function Home() {
   useEffect(() => {
     if (isLoading) return;
     if (workspacesId) {
-      router.replace(`/workspace/${workspacesId}`);
-      setOpen(false)
+     
     } else if (!open) {
       setOpen(true);
     }
