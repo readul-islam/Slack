@@ -1,17 +1,17 @@
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenuItem,
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuTrigger,
+  DropdownMenuItem,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces";
 import { useCreateWorkspaceModal } from "@/features/workspaces/store/use-create-workspace-modal";
 import { useWorkspaceId } from "@/hooks/create-workspace-id";
 
-import { Badge, Loader, LucideBadgeCheck, Plus, PlusIcon } from "lucide-react";
+import { Loader, LucideBadgeCheck, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const WorkspaceSwitcher = () => {
@@ -46,15 +46,14 @@ const WorkspaceSwitcher = () => {
         >
           <div className="shrink-0   size-9 relative overflow-hidden bg-[#616061] text-white text-lg rounded-md flex items-center justify-center mr-2">
             {workspace?.name.charAt(0).toUpperCase()}
-           
           </div>
-         <div className="flex-col flex">
-         {workspace?.name}
-          <span className=" text-xs text-muted-foreground flex items-center gap-x-[3px]">
-            Active workspace
-          <LucideBadgeCheck className="size-4 text-purple-700   "/>
-          </span>
-         </div>
+          <div className="flex-col flex">
+            {workspace?.name}
+            <span className=" text-xs text-muted-foreground flex items-center gap-x-[3px]">
+              Active workspace
+              <LucideBadgeCheck className="size-4 text-purple-700   " />
+            </span>
+          </div>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         {filteredWorkspace?.map((workspace) => (
