@@ -7,13 +7,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Doc } from "../../../../convex/_generated/dataModel";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ListFilter, SquarePen } from "lucide-react";
+import Hint from "@/components/hint";
 
 interface WorkspaceHeaderProps {
   workspace: Doc<"workspaces">;
+  isAdmin:boolean;
 }
 
-const WorkspaceHeader = ({ workspace }: WorkspaceHeaderProps) => {
+const WorkspaceHeader = ({ workspace ,isAdmin}: WorkspaceHeaderProps) => {
   return (
     <div className="flex items-center justify-between px-4 h-[49px] gap-0.5">
       <DropdownMenu>
@@ -35,12 +37,34 @@ const WorkspaceHeader = ({ workspace }: WorkspaceHeaderProps) => {
                 <p className="text-xs text-muted-foreground">Active workspace</p>
             </div>
           </DropdownMenuItem>
-          <DropdownMenuSeparator/>
+          {isAdmin && <>
+            <DropdownMenuSeparator/>
           <DropdownMenuItem onClick={()=> {}} className="cursor-pointer py-2">
             Invite people to {workspace.name}
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={()=> {}} className="cursor-pointer py-2">
+           Preferences
+          </DropdownMenuItem> 
+          
+          </>}
         </DropdownMenuContent>
+        
       </DropdownMenu>
+      <div className="flex items-center gap-0.5">
+      <Hint label="Filter conversation" side="bottom">
+      <Button variant={'transparent'}>
+          <ListFilter className="size-4"/>
+        </Button>
+      </Hint>
+      
+       <Hint label="New message" side="bottom">
+       <Button variant={'transparent'}>
+          <SquarePen className="size-4"/>
+        </Button>
+       </Hint>
+        
+
+      </div>
     </div>
   );
 };
