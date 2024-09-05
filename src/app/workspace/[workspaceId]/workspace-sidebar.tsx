@@ -40,12 +40,13 @@ if (!workspace || !member) {
       <SidebarItem label="Drafts & Sent" icon={SendHorizonal}
       id="drafts&sent"
       />
-     <WorkspaceSection label="Channels" hint="New channel" onNew={()=>{}}>
+    
+    </div>
+    <WorkspaceSection label="Channels" hint="New channel" onNew={()=>{}}>
      {channels?.map((item)=>(
         <SidebarItem key={item._id} icon={HashIcon} label={item.name} id={item._id}/>
       ))}
      </WorkspaceSection>
-    </div>
   </div>;
 };
 
