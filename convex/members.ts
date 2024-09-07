@@ -22,7 +22,16 @@ export const get = query({
     if (!member) return [];
     const data = await ctx.db.query("members").withIndex("by_workspace_id", (q)=> q.eq("workspaceId", args.workspaceId)).collect();
 
-    return member;
+    const members = [];
+    for(const member of data){
+      const user = await populateUser(ctx, member.userId);
+      if(user){
+        members.push({
+          ...member, user
+        })
+      }
+    }
+    return members;
   },
 })
 
