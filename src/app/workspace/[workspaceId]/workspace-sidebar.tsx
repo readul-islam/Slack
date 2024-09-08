@@ -15,6 +15,7 @@ import SidebarItem from "./sidebar-item";
 import { useGetChannels } from "@/features/channels/api/use-get-channels";
 import WorkspaceSection from "./workspace-section";
 import { useGetMembers } from "@/features/members/api/get-members";
+import UserItem from "./user-item";
 
 const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
@@ -70,11 +71,16 @@ const WorkspaceSidebar = () => {
           />
         ))}
       </WorkspaceSection>
-      {members?.map((item)=>(
-        <div>
-          {item.user.name}
-        </div>
-      ))}
+      <WorkspaceSection label="Direct Message" hint="New direct message" onNew={() => {}}>
+        {members?.map((item) => (
+          <UserItem
+            id={item._id}
+            key={item._id}
+            label={item.user.name}
+            image={item.user.image}
+          />
+        ))}
+      </WorkspaceSection>
     </div>
   );
 };
