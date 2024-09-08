@@ -21,7 +21,7 @@ const WorkspaceSection = ({
   console.log(on);
   return (
     <div className="flex flex-col mt-3 px-2">
-      <div className="flex justify-between items-center pl-1.5 pr-3  group">
+      <div className="flex justify-between items-center p-3  group">
         <div className="flex items-center">
           <Button
             variant={"transparent"}
